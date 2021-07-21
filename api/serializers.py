@@ -1,9 +1,10 @@
 import time
 from functools import lru_cache
 
-from api import models
 from django.conf import settings
 from rest_framework import serializers
+
+from api import models
 
 
 class VectorSerializer(serializers.ModelSerializer):

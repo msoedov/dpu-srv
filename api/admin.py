@@ -1,10 +1,10 @@
 import json
+from datetime import datetime
+from datetime import timedelta
 
 from django.db.models import Count
 from django.db.models.functions import TruncDay
 from django.core.serializers.json import DjangoJSONEncoder
-
-from datetime import datetime, timedelta
 
 from api import models
 

@@ -1,6 +1,6 @@
 import uuid
-
 from enum import Enum
+
 from django.db import models
 from django.db.utils import IntegrityError
 
