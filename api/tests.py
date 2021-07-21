@@ -10,10 +10,7 @@ import api.models as models
 
 
 def jason(**data):
-    return dict(
-        content_type="application/json",
-        data=json.dumps(data),
-    )
+    return dict(content_type="application/json", data=json.dumps(data),)
 
 
 placeholder = lambda: str(mixer.faker.small_positive_integer())
@@ -36,28 +33,21 @@ class VectorApiViewTests(TestCase):
 
     def setup_objects(self):
         n = 5
-        _ = mixer.cycle(n).blend(
-            models.Vector,
-        )
-        _ = mixer.cycle(n).blend(
-            models.Vector,
-        )
+        _ = mixer.cycle(n).blend(models.Vector,)
+        _ = mixer.cycle(n).blend(models.Vector,)
 
     def test_key_get_ok(self):
         response = self.client.post(
-            "/api/key/promo",
-            **jason(email=mixer.faker.email()),
+            "/api/key/promo", **jason(email=mixer.faker.email()),
         )
         self.assertEquals(response.status_code, 200, response.json())
         response = self.client.post(
-            "/api/key/lead",
-            **jason(email=mixer.faker.email()),
+            "/api/key/lead", **jason(email=mixer.faker.email()),
         )
         self.assertEquals(response.status_code, 200, response.json())
 
         response = self.client.post(
-            "/api/key/test",
-            **jason(email=mixer.faker.email()),
+            "/api/key/test", **jason(email=mixer.faker.email()),
         )
         self.assertEquals(response.status_code, 200, response.json())
         print("json->", response.json())

@@ -10,21 +10,25 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Vector',
+            name="Vector",
             fields=[
-                ('id', api.models.ApiIdField(editable=False, max_length=34, primary_key=True, serialize=False)),
-                ('product_id', models.CharField(max_length=32)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('details', models.JSONField(default=dict)),
-                ('title', models.CharField(max_length=32)),
-                ('description', models.TextField(blank=True, max_length=512)),
-                ('image_url', models.URLField(blank=True)),
-                ('active', models.BooleanField(default=True)),
+                (
+                    "id",
+                    api.models.ApiIdField(
+                        editable=False, max_length=34, primary_key=True, serialize=False
+                    ),
+                ),
+                ("product_id", models.CharField(max_length=32)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("details", models.JSONField(default=dict)),
+                ("title", models.CharField(max_length=32)),
+                ("description", models.TextField(blank=True, max_length=512)),
+                ("image_url", models.URLField(blank=True)),
+                ("active", models.BooleanField(default=True)),
             ],
         ),
     ]
