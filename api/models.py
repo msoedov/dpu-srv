@@ -35,12 +35,47 @@ class AggregationManager(models.Manager):
         super().__init__(*args, **kwargs)
 
 
-class Vector(models.Model):
-    id = ApiIdField(prefix="hst")
-    product_id = models.CharField(max_length=32)
-    created_at = models.DateTimeField(auto_now_add=True)
-    details = models.JSONField(default=dict)
-    title = models.CharField(max_length=32)
+class Space(models.Model):
+    id = ApiIdField(prefix="spc")
+    name = models.CharField(max_length=32)
     description = models.TextField(max_length=512, blank=True)
-    image_url = models.URLField(blank=True)
+    details = models.JSONField(default=dict)
+    comany = models.CharField(max_length=32)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
+
+
+class Doorway(models.Model):
+    id = ApiIdField(prefix="drw")
+    name = models.CharField(max_length=32)
+    description = models.TextField(max_length=512, blank=True)
+    details = models.JSONField(default=dict)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+    spaces = models.ManyToManyField(Space)
+
+
+class DPU(models.Model):
+    id = ApiIdField(prefix="dpu")
+    name = models.CharField(max_length=32)
+    description = models.TextField(max_length=512, blank=True)
+    details = models.JSONField(default=dict)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+    door = models.ForeignKey(Doorway, on_delete=models.SET_NULL, null=True)
+
+
+class Events(models.Model):
+    id = ApiIdField(prefix="ev")
+    door = models.ForeignKey(Doorway, on_delete=models.SET_NULL, null=True)
+    direction = models.SmallIntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RealtimeSpaceData(models.Model):
+    id = ApiIdField(prefix="rsd")
+    space = models.ForeignKey(Space, on_delete=models.CASCADE)
+    count = models.IntegerField()

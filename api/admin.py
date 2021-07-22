@@ -33,10 +33,46 @@ class ChartJsMixin:
         return super().changelist_view(request, extra_context=extra_context)
 
 
-@admin.register(models.Vector)
-class VectorAdmin(ChartJsMixin, admin.ModelAdmin):
+@admin.register(models.Space)
+class SpaceAdmin(ChartJsMixin, admin.ModelAdmin):
     search_fields = ("id",)
     list_display = (
         "id",
         "created_at",
+    )
+
+
+@admin.register(models.Doorway)
+class DoorwayAdmin(ChartJsMixin, admin.ModelAdmin):
+    search_fields = ("id",)
+    list_display = (
+        "id",
+        "created_at",
+    )
+
+
+@admin.register(models.DPU)
+class DPUAdmin(ChartJsMixin, admin.ModelAdmin):
+    search_fields = ("id",)
+    list_display = (
+        "id",
+        "created_at",
+    )
+
+
+@admin.register(models.Events)
+class SpaceEventsAdmin(ChartJsMixin, admin.ModelAdmin):
+    search_fields = ("id",)
+    list_display = (
+        "id",
+        "created_at",
+    )
+
+
+@admin.register(models.RealtimeSpaceData)
+class RealtimeSpaceDataAdmin(admin.ModelAdmin):
+    search_fields = ("id",)
+    list_display = (
+        "id",
+        "count",
     )

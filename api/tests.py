@@ -1,6 +1,4 @@
 import json
-import uuid
-import tempfile
 
 from django.test import TestCase
 from rest_framework.test import APIClient
