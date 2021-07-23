@@ -1,6 +1,3 @@
-import os
-from functools import lru_cache
-from django.db.models import F
 from api import models
 from django.core.management.base import BaseCommand
 
