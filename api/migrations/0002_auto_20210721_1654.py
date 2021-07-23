@@ -8,51 +8,73 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0001_initial'),
+        ("api", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Doorway',
+            name="Doorway",
             fields=[
-                ('id', api.models.ApiIdField(editable=False, max_length=34, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=32)),
-                ('description', models.TextField(blank=True, max_length=512)),
-                ('details', models.JSONField(default=dict)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('active', models.BooleanField(default=True)),
+                (
+                    "id",
+                    api.models.ApiIdField(
+                        editable=False, max_length=34, primary_key=True, serialize=False
+                    ),
+                ),
+                ("name", models.CharField(max_length=32)),
+                ("description", models.TextField(blank=True, max_length=512)),
+                ("details", models.JSONField(default=dict)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("active", models.BooleanField(default=True)),
             ],
         ),
         migrations.CreateModel(
-            name='DPU',
+            name="DPU",
             fields=[
-                ('id', api.models.ApiIdField(editable=False, max_length=34, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=32)),
-                ('description', models.TextField(blank=True, max_length=512)),
-                ('details', models.JSONField(default=dict)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('active', models.BooleanField(default=True)),
-                ('door', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='api.doorway')),
+                (
+                    "id",
+                    api.models.ApiIdField(
+                        editable=False, max_length=34, primary_key=True, serialize=False
+                    ),
+                ),
+                ("name", models.CharField(max_length=32)),
+                ("description", models.TextField(blank=True, max_length=512)),
+                ("details", models.JSONField(default=dict)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("active", models.BooleanField(default=True)),
+                (
+                    "door",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="api.doorway",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Space',
+            name="Space",
             fields=[
-                ('id', api.models.ApiIdField(editable=False, max_length=34, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=32)),
-                ('description', models.TextField(blank=True, max_length=512)),
-                ('details', models.JSONField(default=dict)),
-                ('comany', models.CharField(max_length=32)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('active', models.BooleanField(default=True)),
+                (
+                    "id",
+                    api.models.ApiIdField(
+                        editable=False, max_length=34, primary_key=True, serialize=False
+                    ),
+                ),
+                ("name", models.CharField(max_length=32)),
+                ("description", models.TextField(blank=True, max_length=512)),
+                ("details", models.JSONField(default=dict)),
+                ("comany", models.CharField(max_length=32)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("active", models.BooleanField(default=True)),
             ],
         ),
         migrations.DeleteModel(
-            name='Vector',
+            name="Vector",
         ),
         migrations.AddField(
-            model_name='doorway',
-            name='spaces',
-            field=models.ManyToManyField(to='api.Space'),
+            model_name="doorway",
+            name="spaces",
+            field=models.ManyToManyField(to="api.Space"),
         ),
     ]

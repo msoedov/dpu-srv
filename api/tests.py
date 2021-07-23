@@ -8,7 +8,10 @@ import api.models as models
 
 
 def jason(**data):
-    return dict(content_type="application/json", data=json.dumps(data),)
+    return dict(
+        content_type="application/json",
+        data=json.dumps(data),
+    )
 
 
 placeholder = lambda: str(mixer.faker.small_positive_integer())
@@ -31,9 +34,15 @@ class EventApiViewTests(TestCase):
 
     def setup_objects(self):
         n = 5
-        _ = mixer.cycle(n).blend(models.Events,)
-        _ = mixer.cycle(n).blend(models.Events,)
+        _ = mixer.cycle(n).blend(
+            models.Events,
+        )
+        _ = mixer.cycle(n).blend(
+            models.Events,
+        )
 
     def test_key_get_ok(self):
-        response = self.client.get("/api/events/spc_65b67b69acac4b6d80ffffb1a99d8f",)
+        response = self.client.get(
+            "/api/events/spc_65b67b69acac4b6d80ffffb1a99d8f",
+        )
         self.assertEquals(response.status_code, 200, response.json())
