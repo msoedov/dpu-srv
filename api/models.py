@@ -1,6 +1,6 @@
 import uuid
 from enum import Enum
-
+from functools import lru_cache
 from django.db import models
 from django.db.utils import IntegrityError
 
@@ -30,16 +30,26 @@ class ApiIdField(models.CharField):
         return f"{self.prefix}_{key}"[: self.max_length]
 
 
-class AggregationManager(models.Manager):
+class CustomManager(models.Manager):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    @lru_cache(256)
+    def motion_direction(self, dpu: str or "DPU", direction=1) -> ("Space", "Space"):
+        if isinstance(dpu, str):
+            dpu = DPU.objects.get(id=dpu)
+        if not dpu:
+            return None
+        if direction == 1:
+            return dpu.door.ingress_spc, dpu.door.egress_spc
+        return dpu.door.egress_spc, dpu.door.ingress_spc
 
 
 class Space(models.Model):
     id = ApiIdField(prefix="spc")
     name = models.CharField(max_length=32)
     description = models.TextField(max_length=512, blank=True)
-    details = models.JSONField(default=dict)
+    meta_details = models.JSONField(default=dict)
     comany = models.CharField(max_length=32)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -50,32 +60,41 @@ class Doorway(models.Model):
     id = ApiIdField(prefix="drw")
     name = models.CharField(max_length=32)
     description = models.TextField(max_length=512, blank=True)
-    details = models.JSONField(default=dict)
+    meta_details = models.JSONField(default=dict)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
-    spaces = models.ManyToManyField(Space)
+    egress_spc = models.ForeignKey(
+        Space, on_delete=models.CASCADE, related_name="egress"
+    )
+    ingress_spc = models.ForeignKey(
+        Space, on_delete=models.CASCADE, related_name="ingress"
+    )
 
 
 class DPU(models.Model):
     id = ApiIdField(prefix="dpu")
     name = models.CharField(max_length=32)
     description = models.TextField(max_length=512, blank=True)
-    details = models.JSONField(default=dict)
+    meta_details = models.JSONField(default=dict)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     door = models.ForeignKey(Doorway, on_delete=models.SET_NULL, null=True)
 
+    objects = CustomManager()
+
 
 class Events(models.Model):
     id = ApiIdField(prefix="ev")
     door = models.ForeignKey(Doorway, on_delete=models.SET_NULL, null=True)
+    space = models.ForeignKey(Space, on_delete=models.CASCADE, related_name="events")
     direction = models.SmallIntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
+    new_count = models.IntegerField(default=0)
 
 
 class RealtimeSpaceData(models.Model):
     id = ApiIdField(prefix="rsd")
     space = models.ForeignKey(Space, on_delete=models.CASCADE)
-    count = models.IntegerField()
+    count = models.IntegerField(default=0)

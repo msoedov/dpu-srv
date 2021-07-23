@@ -4,7 +4,5 @@ from api import views
 
 urlpatterns = [
     # ...
-    url(r"^magic/(?P<mission_id>[^/]+)$", views.VectorView.as_view()),
-    url(r"^magic/$", views.VectorView.as_view()),
-    url(r"^magic/(?P<pk>[^/]+)$", views.ReadVectorView.as_view()),
+    url(r"events/(?P<spc>[^/]+)$$", views.EventsView.as_view()),
 ]

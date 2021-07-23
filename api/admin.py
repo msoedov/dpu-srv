@@ -65,6 +65,7 @@ class SpaceEventsAdmin(ChartJsMixin, admin.ModelAdmin):
     search_fields = ("id",)
     list_display = (
         "id",
+        "new_count",
         "created_at",
     )
 
