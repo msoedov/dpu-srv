@@ -8,45 +8,55 @@ import django.db.models.manager
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0003_auto_20210722_1829'),
+        ("api", "0003_auto_20210722_1829"),
     ]
 
     operations = [
         migrations.AlterModelManagers(
-            name='dpu',
+            name="dpu",
             managers=[
-                ('lookup', django.db.models.manager.Manager()),
+                ("lookup", django.db.models.manager.Manager()),
             ],
         ),
         migrations.RenameField(
-            model_name='doorway',
-            old_name='details',
-            new_name='meta_details',
+            model_name="doorway",
+            old_name="details",
+            new_name="meta_details",
         ),
         migrations.RenameField(
-            model_name='dpu',
-            old_name='details',
-            new_name='meta_details',
+            model_name="dpu",
+            old_name="details",
+            new_name="meta_details",
         ),
         migrations.RenameField(
-            model_name='space',
-            old_name='details',
-            new_name='meta_details',
+            model_name="space",
+            old_name="details",
+            new_name="meta_details",
         ),
         migrations.RemoveField(
-            model_name='doorway',
-            name='spaces',
+            model_name="doorway",
+            name="spaces",
         ),
         migrations.AddField(
-            model_name='doorway',
-            name='egress_spc',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, related_name='egress', to='api.space'),
+            model_name="doorway",
+            name="egress_spc",
+            field=models.ForeignKey(
+                default=None,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="egress",
+                to="api.space",
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='doorway',
-            name='ingress_spc',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, related_name='ingress', to='api.space'),
+            model_name="doorway",
+            name="ingress_spc",
+            field=models.ForeignKey(
+                default=None,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="ingress",
+                to="api.space",
+            ),
             preserve_default=False,
         ),
     ]

@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0005_auto_20210723_0944'),
+        ("api", "0005_auto_20210723_0944"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='realtimespacedata',
-            name='count',
+            model_name="realtimespacedata",
+            name="count",
             field=models.IntegerField(default=0),
         ),
     ]

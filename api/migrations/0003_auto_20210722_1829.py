@@ -8,40 +8,62 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0002_auto_20210721_1654'),
+        ("api", "0002_auto_20210721_1654"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='doorway',
-            name='modified_at',
+            model_name="doorway",
+            name="modified_at",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='dpu',
-            name='modified_at',
+            model_name="dpu",
+            name="modified_at",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='space',
-            name='modified_at',
+            model_name="space",
+            name="modified_at",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.CreateModel(
-            name='RealtimeSpaceData',
+            name="RealtimeSpaceData",
             fields=[
-                ('id', api.models.ApiIdField(editable=False, max_length=34, primary_key=True, serialize=False)),
-                ('count', models.IntegerField()),
-                ('space', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.space')),
+                (
+                    "id",
+                    api.models.ApiIdField(
+                        editable=False, max_length=34, primary_key=True, serialize=False
+                    ),
+                ),
+                ("count", models.IntegerField()),
+                (
+                    "space",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="api.space"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Events',
+            name="Events",
             fields=[
-                ('id', api.models.ApiIdField(editable=False, max_length=34, primary_key=True, serialize=False)),
-                ('direction', models.SmallIntegerField(default=1)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('door', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='api.doorway')),
+                (
+                    "id",
+                    api.models.ApiIdField(
+                        editable=False, max_length=34, primary_key=True, serialize=False
+                    ),
+                ),
+                ("direction", models.SmallIntegerField(default=1)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "door",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="api.doorway",
+                    ),
+                ),
             ],
         ),
     ]
