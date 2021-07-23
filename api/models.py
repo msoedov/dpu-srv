@@ -50,7 +50,7 @@ class Space(models.Model):
     name = models.CharField(max_length=32)
     description = models.TextField(max_length=512, blank=True)
     meta_details = models.JSONField(default=dict)
-    comany = models.CharField(max_length=32)
+    company = models.CharField(max_length=32)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
