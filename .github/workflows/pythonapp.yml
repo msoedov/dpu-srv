@@ -25,4 +25,4 @@ jobs:
         run: |
           pip install Pylama==7.7.1
           # stop the build if there are Python syntax errors or undefined names
-          pylama -i E501,E731,C901,W0612,W503,E231,E203 .
+          pylama -i E501,E731,C901,W0612,W503,E231,E203,W605 .
